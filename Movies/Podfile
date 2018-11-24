@@ -1,0 +1,12 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, '11.0'
+
+
+  # Pods for Movies
+
+target 'Movies' do
+
+pod 'AFNetworking'
+pod 'Masonry'
+
+end
