@@ -1,5 +1,5 @@
 //
-//  listOfMoviesTableViewController.h
+//  listOfMoviesViewController.h
 //  Movies
 //
 //  Created by gaston on 11/24/18.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface listOfMoviesTableViewController : UITableViewController
+@interface listOfMoviesViewController :  UIViewController
 
 @end

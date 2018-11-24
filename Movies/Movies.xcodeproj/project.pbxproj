@@ -10,7 +10,9 @@
 		3D4893E221A98F0C00FC5A47 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4893E121A98F0C00FC5A47 /* AppDelegate.m */; };
 		3D4893EA21A98F0C00FC5A47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D4893E921A98F0C00FC5A47 /* Assets.xcassets */; };
 		3D4893F021A98F0C00FC5A47 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4893EF21A98F0C00FC5A47 /* main.m */; };
-		3DABEEA521A98FAC00C6A423 /* listOfMoviesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DABEEA421A98FAC00C6A423 /* listOfMoviesTableViewController.m */; };
+		3DABEEA921A99B2F00C6A423 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DABEEA821A99B2F00C6A423 /* Images.xcassets */; };
+		3DABEEAB21A9A4F000C6A423 /* listOfMoviesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DABEEAA21A9A4F000C6A423 /* listOfMoviesTableViewController.m */; };
+		3DABEEAD21A9B4F500C6A423 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DABEEAC21A9B4F500C6A423 /* Default-568h@2x.png */; };
 		8C184B48E9600331C9BCDD62 /* libPods-Movies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B03736E79E44AFAB8F317821 /* libPods-Movies.a */; };
 /* End PBXBuildFile section */
 
@@ -22,8 +24,10 @@
 		3D4893E921A98F0C00FC5A47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D4893EE21A98F0C00FC5A47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D4893EF21A98F0C00FC5A47 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3DABEEA321A98FAC00C6A423 /* listOfMoviesTableViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = listOfMoviesTableViewController.h; sourceTree = "<group>"; };
-		3DABEEA421A98FAC00C6A423 /* listOfMoviesTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = listOfMoviesTableViewController.m; sourceTree = "<group>"; };
+		3DABEEA321A98FAC00C6A423 /* listOfMoviesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = listOfMoviesViewController.h; sourceTree = "<group>"; };
+		3DABEEA821A99B2F00C6A423 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "../../../../OBJECTIVE C/MercadoLibre/gastonML/gastonML/Images.xcassets/Images.xcassets"; sourceTree = "<group>"; };
+		3DABEEAA21A9A4F000C6A423 /* listOfMoviesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = listOfMoviesTableViewController.m; sourceTree = "<group>"; };
+		3DABEEAC21A9B4F500C6A423 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		B03736E79E44AFAB8F317821 /* libPods-Movies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Movies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8AD1A35D31BE497F27A4C7 /* Pods-Movies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movies.release.xcconfig"; path = "Pods/Target Support Files/Pods-Movies/Pods-Movies.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -54,6 +58,7 @@
 			children = (
 				3D4893DF21A98F0C00FC5A47 /* Movies */,
 				3D4893DE21A98F0C00FC5A47 /* Products */,
+				3DABEEA721A99AFC00C6A423 /* supporting Files */,
 				0CD638A474975F11C40B3840 /* Pods */,
 				E3FAD3E92347C1FB4F2BAEE3 /* Frameworks */,
 			);
@@ -72,12 +77,22 @@
 			children = (
 				3D4893E021A98F0C00FC5A47 /* AppDelegate.h */,
 				3D4893E121A98F0C00FC5A47 /* AppDelegate.m */,
-				3D4893E921A98F0C00FC5A47 /* Assets.xcassets */,
 				3D4893EE21A98F0C00FC5A47 /* Info.plist */,
 				3D4893EF21A98F0C00FC5A47 /* main.m */,
-				3DABEEA321A98FAC00C6A423 /* listOfMoviesTableViewController.h */,
-				3DABEEA421A98FAC00C6A423 /* listOfMoviesTableViewController.m */,
+				3DABEEA321A98FAC00C6A423 /* listOfMoviesViewController.h */,
+				3DABEEAA21A9A4F000C6A423 /* listOfMoviesTableViewController.m */,
 			);
+			path = Movies;
+			sourceTree = "<group>";
+		};
+		3DABEEA721A99AFC00C6A423 /* supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3DABEEAC21A9B4F500C6A423 /* Default-568h@2x.png */,
+				3D4893E921A98F0C00FC5A47 /* Assets.xcassets */,
+				3DABEEA821A99B2F00C6A423 /* Images.xcassets */,
+			);
+			name = "supporting Files";
 			path = Movies;
 			sourceTree = "<group>";
 		};
@@ -150,7 +165,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3DABEEA921A99B2F00C6A423 /* Images.xcassets in Resources */,
 				3D4893EA21A98F0C00FC5A47 /* Assets.xcassets in Resources */,
+				3DABEEAD21A9B4F500C6A423 /* Default-568h@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -213,7 +230,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D4893F021A98F0C00FC5A47 /* main.m in Sources */,
-				3DABEEA521A98FAC00C6A423 /* listOfMoviesTableViewController.m in Sources */,
+				3DABEEAB21A9A4F000C6A423 /* listOfMoviesTableViewController.m in Sources */,
 				3D4893E221A98F0C00FC5A47 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -329,13 +346,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1893C26AD304D6E9979663C0 /* Pods-Movies.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 75ZZ6F8U6Z;
 				INFOPLIST_FILE = Movies/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GG.Movies;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -343,13 +361,14 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EA8AD1A35D31BE497F27A4C7 /* Pods-Movies.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 75ZZ6F8U6Z;
 				INFOPLIST_FILE = Movies/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GG.Movies;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
