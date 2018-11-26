@@ -1,40 +1,40 @@
 //
-//  listOfMoviesViewController.m
+//  ListOfMoviesViewController.m
 //  Movies
 //
 //  Created by gaston on 11/24/18.
 //  Copyright © 2018 gaston. All rights reserved.
 //
 
-#import "listOfMoviesViewController.h"
+#import "ListOfMoviesViewController.h"
 #import "MovieTableViewCell.h"
-#import "moviesAPIConstants.h"
-#import "movieData.h"
+#import "MoviesAPIConstants.h"
+#import "MovieData.h"
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 #import "Masonry.h"
 
 static NSString *CellIdentifier = @"MovieCell";
 
-@interface listOfMoviesViewController () <UITableViewDelegate,UITableViewDataSource>
+@interface ListOfMoviesViewController () <UITableViewDelegate,UITableViewDataSource>
 
 @property (strong, nonatomic) UILabel *screenTitle;
 @property (strong, nonatomic) UITableView *tableView;
-@property (strong, nonatomic) NSDictionary *topRatedMovies;
-@property (strong, nonatomic) movieData *movieData;
+@property (strong, nonatomic) NSArray *topRatedMovies;
+@property (strong, nonatomic) MovieData *movieData;
 
 
 @end
 
-@implementation listOfMoviesViewController
+@implementation ListOfMoviesViewController
 
 #pragma mark - lifecycle
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self loadData];
     [self.view setBackgroundColor:[UIColor blackColor]];
     [self addScreenTitle];
+    [self loadData];
     [self cofigureTableview];
 }
 
@@ -50,16 +50,16 @@ static NSString *CellIdentifier = @"MovieCell";
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_movieData.moviesResults count];
+    return [_topRatedMovies count];
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MovieTableViewCell *cell = (MovieTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
 
-    cell.movieTitle.text = [[_movieData.moviesResults objectAtIndex:[indexPath row]] objectForKey:kTitleKey];
+    cell.movieTitle.text = [[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kTitleKey];
     
-    NSString *url = [[NSString alloc] initWithFormat:@"%@%@",kMoviesBaseImageURL, [[_movieData.moviesResults objectAtIndex:[indexPath row]] objectForKey:kBackdropPathKey]];
+    NSString *url = [[NSString alloc] initWithFormat:@"%@%@",kMoviesBaseImageURL, [[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kBackdropPathKey]];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     UIImage *loading = [UIImage imageNamed:@"loading"];
     
@@ -80,39 +80,19 @@ static NSString *CellIdentifier = @"MovieCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *url = [[NSString alloc] initWithFormat:@"%@%@",kMoviesBaseImageURL, [[[self.topRatedMovies objectForKey:kResultsKey] objectAtIndex:[indexPath row]] objectForKey:kBackdropPathKey]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    UIImage *loading = [UIImage imageNamed:@"loading"];
-    
-    UIImageView *currentImage = [[UIImageView alloc] init];
-    
-     __weak UIImageView *weakCurrentImage = currentImage;
-    
-    [currentImage setImageWithURLRequest:request
-    placeholderImage:loading
-    success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-        weakCurrentImage.image = image;
-    } failure:nil];
-    
-    CGFloat imageRatio = [self getCropRatioOfImage:currentImage.image];
-    
-    return (tableView.frame.size.width / imageRatio);
+    return 200;
 }
 
 #pragma mark - private methods
 
 - (void)loadData {
-    // 1
     NSString *string = [NSString stringWithFormat:@"%@%@", kMoviesBaseURLString,kMoviesAPIKey];
     NSURL *url = [NSURL URLWithString:[string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
     
-    // 2
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    
     [manager GET:url.absoluteString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         NSLog(@"JSON: %@",(NSDictionary *)responseObject);
-        _topRatedMovies = responseObject;
-        _movieData = [[movieData alloc] initWithData:[self.topRatedMovies objectForKey:kResultsKey]];
+        _topRatedMovies = [responseObject objectForKey:kResultsKey];
         [self.tableView reloadData];
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
@@ -158,10 +138,6 @@ static NSString *CellIdentifier = @"MovieCell";
         make.centerX.equalTo(self.view.mas_centerX);
         make.height.lessThanOrEqualTo(@100);
     }];
-}
-
-- (CGFloat)getCropRatioOfImage:(UIImage *)image {
-    return (image.size.width / image.size.height);
 }
 
 - (UIImage *)convertImageToGrayScale:(UIImage *)image {

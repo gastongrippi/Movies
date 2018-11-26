@@ -1,5 +1,5 @@
 //
-//  moviesAPIConstants.h
+//  MoviesAPIConstants.h
 //  Movies
 //
 //  Created by gaston on 11/25/18.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface moviesAPIConstants : NSObject
+@interface MoviesAPIConstants : NSObject
 
 extern NSString *const kMoviesAPIKey;
 extern NSString *const kMoviesBaseURLString;

@@ -1,5 +1,5 @@
 //
-//  movieData.h
+//  MovieData.h
 //  Movies
 //
 //  Created by gaston on 11/25/18.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface movieData : NSObject
+@interface MovieData : NSObject
 
 @property(strong, nonatomic)NSArray *moviesResults;
 

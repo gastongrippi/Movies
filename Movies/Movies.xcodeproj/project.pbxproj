@@ -11,11 +11,11 @@
 		3D4893EA21A98F0C00FC5A47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D4893E921A98F0C00FC5A47 /* Assets.xcassets */; };
 		3D4893F021A98F0C00FC5A47 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4893EF21A98F0C00FC5A47 /* main.m */; };
 		3DABEEA921A99B2F00C6A423 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DABEEA821A99B2F00C6A423 /* Images.xcassets */; };
-		3DABEEAB21A9A4F000C6A423 /* listOfMoviesTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DABEEAA21A9A4F000C6A423 /* listOfMoviesTableViewController.m */; };
+		3DABEEAB21A9A4F000C6A423 /* ListOfMoviesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DABEEAA21A9A4F000C6A423 /* ListOfMoviesViewController.m */; };
 		3DABEEAD21A9B4F500C6A423 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DABEEAC21A9B4F500C6A423 /* Default-568h@2x.png */; };
 		3DABEEB021AADB8400C6A423 /* MovieTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DABEEAF21AADB8400C6A423 /* MovieTableViewCell.m */; };
-		3DABEEB921AB5FD800C6A423 /* moviesAPIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DABEEB821AB5FD800C6A423 /* moviesAPIConstants.m */; };
-		3DABEEBC21AB62D900C6A423 /* movieData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DABEEBB21AB62D900C6A423 /* movieData.m */; };
+		3DABEEB921AB5FD800C6A423 /* MoviesAPIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DABEEB821AB5FD800C6A423 /* MoviesAPIConstants.m */; };
+		3DABEEBC21AB62D900C6A423 /* MovieData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DABEEBB21AB62D900C6A423 /* MovieData.m */; };
 		8C184B48E9600331C9BCDD62 /* libPods-Movies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B03736E79E44AFAB8F317821 /* libPods-Movies.a */; };
 /* End PBXBuildFile section */
 
@@ -27,16 +27,16 @@
 		3D4893E921A98F0C00FC5A47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D4893EE21A98F0C00FC5A47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D4893EF21A98F0C00FC5A47 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		3DABEEA321A98FAC00C6A423 /* listOfMoviesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = listOfMoviesViewController.h; sourceTree = "<group>"; };
+		3DABEEA321A98FAC00C6A423 /* ListOfMoviesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListOfMoviesViewController.h; sourceTree = "<group>"; };
 		3DABEEA821A99B2F00C6A423 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "../../../../OBJECTIVE C/MercadoLibre/gastonML/gastonML/Images.xcassets/Images.xcassets"; sourceTree = "<group>"; };
-		3DABEEAA21A9A4F000C6A423 /* listOfMoviesTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = listOfMoviesTableViewController.m; sourceTree = "<group>"; };
+		3DABEEAA21A9A4F000C6A423 /* ListOfMoviesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfMoviesViewController.m; sourceTree = "<group>"; };
 		3DABEEAC21A9B4F500C6A423 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3DABEEAE21AADB8400C6A423 /* MovieTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieTableViewCell.h; sourceTree = "<group>"; };
 		3DABEEAF21AADB8400C6A423 /* MovieTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieTableViewCell.m; sourceTree = "<group>"; };
-		3DABEEB721AB5FD800C6A423 /* moviesAPIConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = moviesAPIConstants.h; sourceTree = "<group>"; };
-		3DABEEB821AB5FD800C6A423 /* moviesAPIConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = moviesAPIConstants.m; sourceTree = "<group>"; };
-		3DABEEBA21AB62D900C6A423 /* movieData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = movieData.h; sourceTree = "<group>"; };
-		3DABEEBB21AB62D900C6A423 /* movieData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = movieData.m; sourceTree = "<group>"; };
+		3DABEEB721AB5FD800C6A423 /* MoviesAPIConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MoviesAPIConstants.h; sourceTree = "<group>"; };
+		3DABEEB821AB5FD800C6A423 /* MoviesAPIConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviesAPIConstants.m; sourceTree = "<group>"; };
+		3DABEEBA21AB62D900C6A423 /* MovieData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieData.h; sourceTree = "<group>"; };
+		3DABEEBB21AB62D900C6A423 /* MovieData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieData.m; sourceTree = "<group>"; };
 		B03736E79E44AFAB8F317821 /* libPods-Movies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Movies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8AD1A35D31BE497F27A4C7 /* Pods-Movies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movies.release.xcconfig"; path = "Pods/Target Support Files/Pods-Movies/Pods-Movies.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -84,8 +84,10 @@
 		3D4893DF21A98F0C00FC5A47 /* Movies */ = {
 			isa = PBXGroup;
 			children = (
-				3DABEEB421AB58D900C6A423 /* Constants */,
+				3D4893E021A98F0C00FC5A47 /* AppDelegate.h */,
+				3D4893E121A98F0C00FC5A47 /* AppDelegate.m */,
 				3DABEEB321AB58D100C6A423 /* Controller */,
+				3DABEEB421AB58D900C6A423 /* Constants */,
 				3DABEEB221AB58CC00C6A423 /* View */,
 				3DABEEB121AB58C100C6A423 /* Model */,
 				3D4893EE21A98F0C00FC5A47 /* Info.plist */,
@@ -108,8 +110,8 @@
 		3DABEEB121AB58C100C6A423 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3DABEEBA21AB62D900C6A423 /* movieData.h */,
-				3DABEEBB21AB62D900C6A423 /* movieData.m */,
+				3DABEEBA21AB62D900C6A423 /* MovieData.h */,
+				3DABEEBB21AB62D900C6A423 /* MovieData.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -126,10 +128,8 @@
 		3DABEEB321AB58D100C6A423 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				3D4893E021A98F0C00FC5A47 /* AppDelegate.h */,
-				3D4893E121A98F0C00FC5A47 /* AppDelegate.m */,
-				3DABEEA321A98FAC00C6A423 /* listOfMoviesViewController.h */,
-				3DABEEAA21A9A4F000C6A423 /* listOfMoviesTableViewController.m */,
+				3DABEEA321A98FAC00C6A423 /* ListOfMoviesViewController.h */,
+				3DABEEAA21A9A4F000C6A423 /* ListOfMoviesViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -137,8 +137,8 @@
 		3DABEEB421AB58D900C6A423 /* Constants */ = {
 			isa = PBXGroup;
 			children = (
-				3DABEEB721AB5FD800C6A423 /* moviesAPIConstants.h */,
-				3DABEEB821AB5FD800C6A423 /* moviesAPIConstants.m */,
+				3DABEEB721AB5FD800C6A423 /* MoviesAPIConstants.h */,
+				3DABEEB821AB5FD800C6A423 /* MoviesAPIConstants.m */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -277,10 +277,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D4893F021A98F0C00FC5A47 /* main.m in Sources */,
-				3DABEEAB21A9A4F000C6A423 /* listOfMoviesTableViewController.m in Sources */,
+				3DABEEAB21A9A4F000C6A423 /* ListOfMoviesViewController.m in Sources */,
 				3DABEEB021AADB8400C6A423 /* MovieTableViewCell.m in Sources */,
-				3DABEEB921AB5FD800C6A423 /* moviesAPIConstants.m in Sources */,
-				3DABEEBC21AB62D900C6A423 /* movieData.m in Sources */,
+				3DABEEB921AB5FD800C6A423 /* MoviesAPIConstants.m in Sources */,
+				3DABEEBC21AB62D900C6A423 /* MovieData.m in Sources */,
 				3D4893E221A98F0C00FC5A47 /* AppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

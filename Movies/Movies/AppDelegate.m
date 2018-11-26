@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "listOfMoviesViewController.h"
+#import "ListOfMoviesViewController.h"
 
 @interface AppDelegate ()
 
@@ -22,7 +22,7 @@
     
     /* create an instance of our view controller then set it as the window’s root view controller
      */
-    listOfMoviesViewController *launchScreen = [[listOfMoviesViewController alloc] init];
+    ListOfMoviesViewController *launchScreen = [[ListOfMoviesViewController alloc] init];
     self.window.rootViewController = launchScreen;
     [self.window makeKeyAndVisible];
     

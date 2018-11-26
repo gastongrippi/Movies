@@ -1,18 +1,18 @@
 //
-//  movieData.m
+//  MovieData.m
 //  Movies
 //
 //  Created by gaston on 11/25/18.
 //  Copyright © 2018 gaston. All rights reserved.
 //
 
-#import "movieData.h"
+#import "MovieData.h"
 
-@interface movieData()
+@interface MovieData()
 
 @end
 
-@implementation movieData
+@implementation MovieData
 
 - (instancetype)initWithData:(NSArray *)resultData {
     self = [super init];
