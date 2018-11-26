@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Movies/listOfMoviesTableViewController.m"
-            timestampString = "564770863.8603081"
+            filePath = "Movies/Model/movieData.m"
+            timestampString = "564884033.2995141"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "71"
-            endingLineNumber = "71"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "19"
+            endingLineNumber = "19"
+            landmarkName = "-initWithData:"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Movies/listOfMoviesTableViewController.m"
-            timestampString = "564770863.860541"
+            filePath = "Movies/Controller/listOfMoviesTableViewController.m"
+            timestampString = "564884033.2998641"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
-            landmarkName = "-tableView:cellForRowAtIndexPath:"
+            startingLineNumber = "119"
+            endingLineNumber = "119"
+            landmarkName = "-loadData"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

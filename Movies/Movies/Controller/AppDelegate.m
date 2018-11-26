@@ -20,13 +20,10 @@
     // Override point for customization after application launch.
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-    /* create an instance of our view controller
-     then set it as the window’s root view controller
+    /* create an instance of our view controller then set it as the window’s root view controller
      */
     listOfMoviesViewController *launchScreen = [[listOfMoviesViewController alloc] init];
-    
     self.window.rootViewController = launchScreen;
-    
     [self.window makeKeyAndVisible];
     
     return YES;
