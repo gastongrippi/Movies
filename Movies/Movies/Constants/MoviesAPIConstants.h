@@ -16,5 +16,7 @@ extern NSString *const kMoviesBaseImageURL;
 extern NSString *const kResultsKey;
 extern NSString *const kTitleKey;
 extern NSString *const kBackdropPathKey;
+extern NSString *const kPosterPathKey;
+extern NSString *const kOverviewKey;
 
 @end

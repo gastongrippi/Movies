@@ -10,6 +10,7 @@
 		3D4893E221A98F0C00FC5A47 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4893E121A98F0C00FC5A47 /* AppDelegate.m */; };
 		3D4893EA21A98F0C00FC5A47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D4893E921A98F0C00FC5A47 /* Assets.xcassets */; };
 		3D4893F021A98F0C00FC5A47 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4893EF21A98F0C00FC5A47 /* main.m */; };
+		3D94957621ACBC9A00FD4174 /* MovieDescriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D94957521ACBC9A00FD4174 /* MovieDescriptionViewController.m */; };
 		3DABEEA921A99B2F00C6A423 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3DABEEA821A99B2F00C6A423 /* Images.xcassets */; };
 		3DABEEAB21A9A4F000C6A423 /* ListOfMoviesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DABEEAA21A9A4F000C6A423 /* ListOfMoviesViewController.m */; };
 		3DABEEAD21A9B4F500C6A423 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DABEEAC21A9B4F500C6A423 /* Default-568h@2x.png */; };
@@ -27,6 +28,8 @@
 		3D4893E921A98F0C00FC5A47 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3D4893EE21A98F0C00FC5A47 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3D4893EF21A98F0C00FC5A47 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3D94957421ACBC9A00FD4174 /* MovieDescriptionViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieDescriptionViewController.h; sourceTree = "<group>"; };
+		3D94957521ACBC9A00FD4174 /* MovieDescriptionViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieDescriptionViewController.m; sourceTree = "<group>"; };
 		3DABEEA321A98FAC00C6A423 /* ListOfMoviesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ListOfMoviesViewController.h; sourceTree = "<group>"; };
 		3DABEEA821A99B2F00C6A423 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = "../../../../OBJECTIVE C/MercadoLibre/gastonML/gastonML/Images.xcassets/Images.xcassets"; sourceTree = "<group>"; };
 		3DABEEAA21A9A4F000C6A423 /* ListOfMoviesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ListOfMoviesViewController.m; sourceTree = "<group>"; };
@@ -130,6 +133,8 @@
 			children = (
 				3DABEEA321A98FAC00C6A423 /* ListOfMoviesViewController.h */,
 				3DABEEAA21A9A4F000C6A423 /* ListOfMoviesViewController.m */,
+				3D94957421ACBC9A00FD4174 /* MovieDescriptionViewController.h */,
+				3D94957521ACBC9A00FD4174 /* MovieDescriptionViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -282,6 +287,7 @@
 				3DABEEB921AB5FD800C6A423 /* MoviesAPIConstants.m in Sources */,
 				3DABEEBC21AB62D900C6A423 /* MovieData.m in Sources */,
 				3D4893E221A98F0C00FC5A47 /* AppDelegate.m in Sources */,
+				3D94957621ACBC9A00FD4174 /* MovieDescriptionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

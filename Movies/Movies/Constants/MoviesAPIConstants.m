@@ -16,5 +16,7 @@ NSString *const kMoviesBaseImageURL = @"https://image.tmdb.org/t/p/w500";
 NSString *const kResultsKey = @"results";
 NSString *const kTitleKey = @"title";
 NSString *const kBackdropPathKey = @"backdrop_path";
+NSString *const kPosterPathKey = @"poster_path";
+NSString *const kOverviewKey = @"overview";
 
 @end

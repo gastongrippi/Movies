@@ -17,7 +17,7 @@
 - (instancetype)initWithData:(NSArray *)resultData {
     self = [super init];
     if (self) {
-        _moviesResults = resultData;
+        
     }
     
     return self;

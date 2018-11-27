@@ -10,6 +10,7 @@
 #import "MovieTableViewCell.h"
 #import "MoviesAPIConstants.h"
 #import "MovieData.h"
+#import "MovieDescriptionViewController.h"
 #import "AFNetworking.h"
 #import "UIImageView+AFNetworking.h"
 #import "Masonry.h"
@@ -21,8 +22,6 @@ static NSString *CellIdentifier = @"MovieCell";
 @property (strong, nonatomic) UILabel *screenTitle;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *topRatedMovies;
-@property (strong, nonatomic) MovieData *movieData;
-
 
 @end
 
@@ -83,6 +82,16 @@ static NSString *CellIdentifier = @"MovieCell";
     return 200;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MovieData *movieSelectedData = [[MovieData alloc] init];
+    [movieSelectedData setMovieDescription:[[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kOverviewKey]];
+    [movieSelectedData setBackDropImageURL:[[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kBackdropPathKey]];
+    [movieSelectedData setPosterPathImageURL:[[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kPosterPathKey]];
+    
+    MovieDescriptionViewController *movieDescriptionVC = [[MovieDescriptionViewController alloc] initWitData:movieSelectedData];
+    [self presentViewController:movieDescriptionVC animated:YES completion:nil];
+}
+
 #pragma mark - private methods
 
 - (void)loadData {
@@ -112,8 +121,8 @@ static NSString *CellIdentifier = @"MovieCell";
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     [_tableView registerClass:[MovieTableViewCell class] forCellReuseIdentifier:CellIdentifier];
     _tableView.rowHeight = UITableViewAutomaticDimension;
-    _tableView.delegate = self;
     _tableView.dataSource = self;
+    _tableView.delegate = self;
     
     [self.view addSubview:_tableView];
     

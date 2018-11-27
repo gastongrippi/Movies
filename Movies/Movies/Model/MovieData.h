@@ -10,8 +10,8 @@
 
 @interface MovieData : NSObject
 
-@property(strong, nonatomic)NSArray *moviesResults;
-
-- (instancetype)initWithData:(NSArray *)resultData;
+@property(strong, nonatomic)NSString *movieDescription;
+@property(strong, nonatomic)NSString *backDropImageURL;
+@property(strong, nonatomic)NSString *posterPathImageURL;
 
 @end
