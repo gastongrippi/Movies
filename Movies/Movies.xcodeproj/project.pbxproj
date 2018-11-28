@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D3AC06D21AE25D100CF0D14 /* UIImageColors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D3AC06C21AE25D100CF0D14 /* UIImageColors.swift */; };
 		3D4893E221A98F0C00FC5A47 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4893E121A98F0C00FC5A47 /* AppDelegate.m */; };
 		3D4893EA21A98F0C00FC5A47 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3D4893E921A98F0C00FC5A47 /* Assets.xcassets */; };
 		3D4893F021A98F0C00FC5A47 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D4893EF21A98F0C00FC5A47 /* main.m */; };
@@ -17,11 +18,13 @@
 		3DABEEB021AADB8400C6A423 /* MovieTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DABEEAF21AADB8400C6A423 /* MovieTableViewCell.m */; };
 		3DABEEB921AB5FD800C6A423 /* MoviesAPIConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DABEEB821AB5FD800C6A423 /* MoviesAPIConstants.m */; };
 		3DABEEBC21AB62D900C6A423 /* MovieData.m in Sources */ = {isa = PBXBuildFile; fileRef = 3DABEEBB21AB62D900C6A423 /* MovieData.m */; };
-		8C184B48E9600331C9BCDD62 /* libPods-Movies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B03736E79E44AFAB8F317821 /* libPods-Movies.a */; };
+		C32CFCCBC8411916ED9B0EFD /* libPods-Movies.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C00DB77DC64D0C93367F6C34 /* libPods-Movies.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1893C26AD304D6E9979663C0 /* Pods-Movies.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movies.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Movies/Pods-Movies.debug.xcconfig"; sourceTree = "<group>"; };
+		3D3AC06B21AE25D000CF0D14 /* Movies-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Movies-Bridging-Header.h"; sourceTree = "<group>"; };
+		3D3AC06C21AE25D100CF0D14 /* UIImageColors.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UIImageColors.swift; sourceTree = "<group>"; };
 		3D4893DD21A98F0C00FC5A47 /* Movies.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Movies.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3D4893E021A98F0C00FC5A47 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		3D4893E121A98F0C00FC5A47 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -40,7 +43,7 @@
 		3DABEEB821AB5FD800C6A423 /* MoviesAPIConstants.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MoviesAPIConstants.m; sourceTree = "<group>"; };
 		3DABEEBA21AB62D900C6A423 /* MovieData.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieData.h; sourceTree = "<group>"; };
 		3DABEEBB21AB62D900C6A423 /* MovieData.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MovieData.m; sourceTree = "<group>"; };
-		B03736E79E44AFAB8F317821 /* libPods-Movies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Movies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C00DB77DC64D0C93367F6C34 /* libPods-Movies.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Movies.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		EA8AD1A35D31BE497F27A4C7 /* Pods-Movies.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Movies.release.xcconfig"; path = "Pods/Target Support Files/Pods-Movies/Pods-Movies.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -49,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C184B48E9600331C9BCDD62 /* libPods-Movies.a in Frameworks */,
+				C32CFCCBC8411916ED9B0EFD /* libPods-Movies.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +68,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		300C877027D7CDF5AC2C07C9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				C00DB77DC64D0C93367F6C34 /* libPods-Movies.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3D4893D421A98F0C00FC5A47 = {
 			isa = PBXGroup;
 			children = (
@@ -72,7 +83,7 @@
 				3D4893DE21A98F0C00FC5A47 /* Products */,
 				3DABEEA721A99AFC00C6A423 /* supporting Files */,
 				0CD638A474975F11C40B3840 /* Pods */,
-				E3FAD3E92347C1FB4F2BAEE3 /* Frameworks */,
+				300C877027D7CDF5AC2C07C9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -87,6 +98,7 @@
 		3D4893DF21A98F0C00FC5A47 /* Movies */ = {
 			isa = PBXGroup;
 			children = (
+				3D3AC06C21AE25D100CF0D14 /* UIImageColors.swift */,
 				3D4893E021A98F0C00FC5A47 /* AppDelegate.h */,
 				3D4893E121A98F0C00FC5A47 /* AppDelegate.m */,
 				3DABEEB321AB58D100C6A423 /* Controller */,
@@ -95,6 +107,7 @@
 				3DABEEB121AB58C100C6A423 /* Model */,
 				3D4893EE21A98F0C00FC5A47 /* Info.plist */,
 				3D4893EF21A98F0C00FC5A47 /* main.m */,
+				3D3AC06B21AE25D000CF0D14 /* Movies-Bridging-Header.h */,
 			);
 			path = Movies;
 			sourceTree = "<group>";
@@ -148,14 +161,6 @@
 			path = Constants;
 			sourceTree = "<group>";
 		};
-		E3FAD3E92347C1FB4F2BAEE3 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				B03736E79E44AFAB8F317821 /* libPods-Movies.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -190,6 +195,7 @@
 				TargetAttributes = {
 					3D4893DC21A98F0C00FC5A47 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 0920;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -265,9 +271,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Movies/Pods-Movies-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/UIImageColors/UIImageColors.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/UIImageColors.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -282,6 +295,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3D4893F021A98F0C00FC5A47 /* main.m in Sources */,
+				3D3AC06D21AE25D100CF0D14 /* UIImageColors.swift in Sources */,
 				3DABEEAB21A9A4F000C6A423 /* ListOfMoviesViewController.m in Sources */,
 				3DABEEB021AADB8400C6A423 /* MovieTableViewCell.m in Sources */,
 				3DABEEB921AB5FD800C6A423 /* MoviesAPIConstants.m in Sources */,
@@ -402,13 +416,18 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 1893C26AD304D6E9979663C0 /* Pods-Movies.debug.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 75ZZ6F8U6Z;
 				INFOPLIST_FILE = Movies/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GG.Movies;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Movies/Movies-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -417,13 +436,17 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = EA8AD1A35D31BE497F27A4C7 /* Pods-Movies.release.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 75ZZ6F8U6Z;
 				INFOPLIST_FILE = Movies/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.2;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = GG.Movies;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Movies/Movies-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

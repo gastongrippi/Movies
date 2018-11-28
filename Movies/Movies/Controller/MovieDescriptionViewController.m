@@ -9,13 +9,18 @@
 #import "MovieDescriptionViewController.h"
 #import "MoviesAPIConstants.h"
 #import "UIImageView+AFNetworking.h"
+#import "Masonry.h"
+#import "Movies-Swift.h"
 
 
 @interface MovieDescriptionViewController ()
 
+@property(strong, nonatomic)UINavigationBar *navBar;
+
 @property(strong, nonatomic)UIImageView *movieBackgroundImageView;
 @property(strong, nonatomic)UIImageView *moviePosterImageView;
 @property(strong, nonatomic)UILabel *movieDescription;
+@property(strong, nonatomic)UIView *translucentView;
 
 @property(strong, nonatomic)NSString *movieOverview;
 @property(strong, nonatomic)NSString *backdropURL;
@@ -29,13 +34,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [self setupInitialView];
     [self initializeDescriptionLabel];
-    [self initializePosterImage];
     [self initializeBackdropImage];
+    [self initializeTranslucentView];
+    [self initializePosterImage];
     
-    [self applyPosterImageConstraints];
+    [self applyInitialViewConstraints];
     [self applyBackdropImageConstraints];
+    [self applyTranslucentViewConstraints];
+    [self applyPosterImageConstraints];
     [self applyDescriptionLabelConstraints];
 }
 
@@ -55,6 +63,29 @@
 }
 
 #pragma mark - private methods
+
+- (void)navigateBack {
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
+
+- (void)setupInitialView {
+    self.view = [[UIView alloc] initWithFrame:CGRectZero];
+    _navBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
+    _navBar.backgroundColor = [UIColor whiteColor];
+    UINavigationItem *navItem = [[UINavigationItem alloc] init];
+    navItem.title = @"Movie detail";
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:self action:@selector(navigateBack)];
+    navItem.leftBarButtonItem = leftButton;
+    _navBar.items = @[navItem];
+}
+
+
+- (void)initializeTranslucentView {
+    _translucentView = [[UIView alloc] initWithFrame:CGRectZero];
+    [_translucentView setBackgroundColor:[UIColor redColor]];
+    [_translucentView setAlpha:0.7f];
+}
+
 
 - (void)initializeDescriptionLabel {
     _movieDescription = [[UILabel alloc]initWithFrame:CGRectZero];
@@ -91,16 +122,43 @@
                                           } failure:nil];
 }
 
+
+- (void)applyTranslucentViewConstraints {
+    [self.view addSubview:_translucentView];
+    [_translucentView mas_makeConstraints:^(MASConstraintMaker *make){
+        make.right.and.left.and.bottom.equalTo(self.view);
+        make.top.equalTo(self.navBar.mas_bottom);
+    }];
+}
+
+- (void)applyInitialViewConstraints {
+    [self.view addSubview:_navBar];
+    [_navBar mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.and.right.and.top.equalTo(self.view);
+        make.height.equalTo(@44);
+    }];
+}
+
 - (void)applyDescriptionLabelConstraints {
-    
+
 }
 
 - (void)applyPosterImageConstraints {
-    
+    [self.view addSubview:_moviePosterImageView];
+    [_moviePosterImageView mas_makeConstraints:^(MASConstraintMaker *make){
+        make.centerX.equalTo(self.view);
+        make.top.equalTo(self.navBar.mas_bottom).with.offset(20);
+        make.height.equalTo(@200);
+        make.width.equalTo(@200);
+    }];
 }
 
 - (void)applyBackdropImageConstraints {
-    
+    [self.view addSubview:_movieBackgroundImageView];
+    [_movieBackgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.navBar.mas_bottom);
+        make.left.and.bottom.and.right.equalTo(self.view);
+    }];
 }
 
 @end
