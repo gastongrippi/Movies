@@ -15,6 +15,8 @@
 @interface MovieDescriptionViewController ()
 
 @property(strong, nonatomic)UINavigationBar *navBar;
+@property(strong, nonatomic)UIScrollView *scrollView;
+@property(strong, nonatomic)UIView *contentView;
 
 @property(strong, nonatomic)UIImageView *movieBackgroundImageView;
 @property(strong, nonatomic)UIImageView *moviePosterImageView;
@@ -68,7 +70,9 @@
 }
 
 - (void)setupInitialView {
-    self.view = [[UIView alloc] initWithFrame:CGRectZero];
+    self.view = [[UIView alloc] init];
+    _scrollView = [[UIScrollView alloc] init];
+    _contentView = [[UIView alloc] init];
     _navBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
     _navBar.backgroundColor = [UIColor whiteColor];
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
@@ -101,7 +105,6 @@
     __weak UIImageView *weakPosterImage = _moviePosterImageView;
     __weak UIView *weakTranslucentView = _translucentView;
     __weak UILabel *weakMovieDescription = _movieDescription;
-    
     [_moviePosterImageView setImageWithURLRequest:request
                                      placeholderImage:loading
                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
@@ -127,46 +130,61 @@
                                           } failure:nil];
 }
 
-
-- (void)applyTranslucentViewConstraints {
-    [self.view addSubview:_translucentView];
-    [_translucentView mas_makeConstraints:^(MASConstraintMaker *make){
-        make.right.and.left.and.bottom.equalTo(self.view);
-        make.top.equalTo(self.navBar.mas_bottom);
-    }];
-}
-
 - (void)applyInitialViewConstraints {
-    [self.view addSubview:_navBar];
+    [self.view addSubview:_scrollView];
+    [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.view);
+    }];
+    
+    [self.scrollView addSubview:_contentView];
+    [_contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.equalTo(self.scrollView);
+        make.width.equalTo(self.scrollView);
+    }];
+    
+    [self.contentView addSubview:_navBar];
     [_navBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.and.top.equalTo(self.view);
+        make.left.and.right.and.top.equalTo(self.contentView);
         make.height.equalTo(@44);
     }];
 }
 
+- (void)applyTranslucentViewConstraints {
+    [self.contentView addSubview:_translucentView];
+    [_translucentView mas_makeConstraints:^(MASConstraintMaker *make){
+        make.width.equalTo(self.contentView.mas_width);
+        make.bottom.greaterThanOrEqualTo(self.contentView);
+        make.top.equalTo(self.navBar.mas_bottom);
+    }];
+}
+
 - (void)applyDescriptionLabelConstraints {
-    [self.view addSubview:_movieDescription];
+    [self.contentView addSubview:_movieDescription];
     [_movieDescription mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.moviePosterImageView.mas_bottom).with.offset(20);
-        make.width.equalTo(self.view.mas_width).multipliedBy(0.8);
-        make.centerX.equalTo(self.view.mas_centerX);
-        make.bottom.greaterThanOrEqualTo(self.view);
+        make.width.equalTo(self.contentView.mas_width).multipliedBy(0.8);
+        make.centerX.equalTo(self.contentView.mas_centerX);
+        make.bottom.greaterThanOrEqualTo(self.contentView);
+    }];
+    
+    [_contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+        make.bottom.equalTo(self.movieDescription);
     }];
 }
 
 - (void)applyPosterImageConstraints {
-    [self.view addSubview:_moviePosterImageView];
+    [self.contentView addSubview:_moviePosterImageView];
     [_moviePosterImageView mas_makeConstraints:^(MASConstraintMaker *make){
-        make.centerX.equalTo(self.view);
+        make.centerX.equalTo(self.contentView);
         make.top.equalTo(self.navBar.mas_bottom).with.offset(20);
     }];
 }
 
 - (void)applyBackdropImageConstraints {
-    [self.view addSubview:_movieBackgroundImageView];
+    [self.contentView addSubview:_movieBackgroundImageView];
     [_movieBackgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.navBar.mas_bottom);
-        make.left.and.bottom.and.right.equalTo(self.view);
+        make.left.and.bottom.and.right.equalTo(self.contentView);
     }];
 }
 
