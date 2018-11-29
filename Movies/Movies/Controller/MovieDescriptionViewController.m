@@ -109,7 +109,7 @@
                                      placeholderImage:loading
                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                   weakPosterImage.image = image;
-                                                  UIColor *averageColor = AverageColorFromImageWithAlpha(image,0.7f);
+                                                  UIColor *averageColor = AverageColorFromImageWithAlpha(image,0.5);
                                                   [weakTranslucentView setBackgroundColor:averageColor];
                                                   [weakMovieDescription setTextColor:ContrastColor(averageColor, YES)];
                                               } failure:nil];
