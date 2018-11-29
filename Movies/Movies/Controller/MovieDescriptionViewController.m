@@ -10,8 +10,7 @@
 #import "MoviesAPIConstants.h"
 #import "UIImageView+AFNetworking.h"
 #import "Masonry.h"
-#import "Movies-Swift.h"
-
+#import <ChameleonFramework/Chameleon.h>
 
 @interface MovieDescriptionViewController ()
 
@@ -82,13 +81,14 @@
 
 - (void)initializeTranslucentView {
     _translucentView = [[UIView alloc] initWithFrame:CGRectZero];
-    [_translucentView setBackgroundColor:[UIColor redColor]];
-    [_translucentView setAlpha:0.7f];
 }
 
 
 - (void)initializeDescriptionLabel {
     _movieDescription = [[UILabel alloc]initWithFrame:CGRectZero];
+    _movieDescription.numberOfLines = 0;
+    [_movieDescription setTextAlignment:NSTextAlignmentJustified];
+    [_movieDescription setFont:[UIFont fontWithName:@"Helvetica" size:20]];
     _movieDescription.text = _movieOverview;
 }
 
@@ -99,11 +99,16 @@
     UIImage *loading = [UIImage imageNamed:@"loading"];
     
     __weak UIImageView *weakPosterImage = _moviePosterImageView;
-
+    __weak UIView *weakTranslucentView = _translucentView;
+    __weak UILabel *weakMovieDescription = _movieDescription;
+    
     [_moviePosterImageView setImageWithURLRequest:request
                                      placeholderImage:loading
                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                   weakPosterImage.image = image;
+                                                  UIColor *averageColor = AverageColorFromImageWithAlpha(image,0.7f);
+                                                  [weakTranslucentView setBackgroundColor:averageColor];
+                                                  [weakMovieDescription setTextColor:ContrastColor(averageColor, YES)];
                                               } failure:nil];
 }
 
@@ -140,7 +145,13 @@
 }
 
 - (void)applyDescriptionLabelConstraints {
-
+    [self.view addSubview:_movieDescription];
+    [_movieDescription mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.moviePosterImageView.mas_bottom).with.offset(20);
+        make.width.equalTo(self.view.mas_width).multipliedBy(0.8);
+        make.centerX.equalTo(self.view.mas_centerX);
+        make.bottom.greaterThanOrEqualTo(self.view);
+    }];
 }
 
 - (void)applyPosterImageConstraints {
@@ -148,8 +159,6 @@
     [_moviePosterImageView mas_makeConstraints:^(MASConstraintMaker *make){
         make.centerX.equalTo(self.view);
         make.top.equalTo(self.navBar.mas_bottom).with.offset(20);
-        make.height.equalTo(@200);
-        make.width.equalTo(@200);
     }];
 }
 
