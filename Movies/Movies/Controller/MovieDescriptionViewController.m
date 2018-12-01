@@ -8,6 +8,7 @@
 
 #import "MovieDescriptionViewController.h"
 #import "MoviesAPIConstants.h"
+#import "MovieGeneralConstants.h"
 #import "UIImageView+AFNetworking.h"
 #import "Masonry.h"
 #import <ChameleonFramework/Chameleon.h>
@@ -36,10 +37,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setupInitialView];
-    [self initializeDescriptionLabel];
     [self initializeBackdropImage];
     [self initializeTranslucentView];
     [self initializePosterImage];
+    [self initializeDescriptionLabel];
     
     [self applyInitialViewConstraints];
     [self applyBackdropImageConstraints];
@@ -85,6 +86,7 @@
 
 - (void)initializeTranslucentView {
     _translucentView = [[UIView alloc] initWithFrame:CGRectZero];
+    [_translucentView setAlpha:0.9];
 }
 
 
@@ -92,32 +94,35 @@
     _movieDescription = [[UILabel alloc]initWithFrame:CGRectZero];
     _movieDescription.numberOfLines = 0;
     [_movieDescription setTextAlignment:NSTextAlignmentJustified];
-    [_movieDescription setFont:[UIFont fontWithName:@"Helvetica" size:20]];
+    [_movieDescription setAdjustsFontSizeToFitWidth:NO];
+    [_movieDescription setFont:[UIFont fontWithName:kGeneralBaseFont size:20]];
     _movieDescription.text = _movieOverview;
 }
 
 - (void)initializePosterImage {
     _moviePosterImageView = [[UIImageView alloc] initWithFrame:CGRectZero];
-    NSString *url = [[NSString alloc] initWithFormat:@"%@%@",kMoviesBaseImageURL, _posterURL];
+    NSString *url = [[NSString alloc] initWithFormat:@"%@%@",kAPIMoviesBaseImageURL, _posterURL];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     UIImage *loading = [UIImage imageNamed:@"loading"];
     
     __weak UIImageView *weakPosterImage = _moviePosterImageView;
     __weak UIView *weakTranslucentView = _translucentView;
     __weak UILabel *weakMovieDescription = _movieDescription;
+    __weak UIView *weakScrollView = _scrollView;
     [_moviePosterImageView setImageWithURLRequest:request
                                      placeholderImage:loading
                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                   weakPosterImage.image = image;
-                                                  UIColor *averageColor = AverageColorFromImageWithAlpha(image,0.5);
+                                                  UIColor *averageColor = AverageColorFromImage(image);
                                                   [weakTranslucentView setBackgroundColor:averageColor];
-                                                  [weakMovieDescription setTextColor:ContrastColor(averageColor, YES)];
+                                                  [weakScrollView setBackgroundColor:averageColor];
+                                                  [weakMovieDescription setTextColor:[UIColor colorWithContrastingBlackOrWhiteColorOn:averageColor isFlat:YES]];
                                               } failure:nil];
 }
 
 - (void)initializeBackdropImage {
     _movieBackgroundImageView= [[UIImageView alloc] initWithFrame:CGRectZero];
-    NSString *url = [[NSString alloc] initWithFormat:@"%@%@",kMoviesBaseImageURL, _backdropURL];
+    NSString *url = [[NSString alloc] initWithFormat:@"%@%@",kAPIMoviesBaseImageURL, _backdropURL];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     UIImage *loading = [UIImage imageNamed:@"loading"];
     

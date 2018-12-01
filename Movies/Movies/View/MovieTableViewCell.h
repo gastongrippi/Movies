@@ -12,5 +12,6 @@
 
 @property (strong, nonatomic)UIImageView *movieBackgroundImage;
 @property (strong, nonatomic)UILabel *movieTitle;
+@property (strong, nonatomic)UILabel *movieGenre;
 
 @end

@@ -10,13 +10,17 @@
 
 @interface MoviesAPIConstants : NSObject
 
-extern NSString *const kMoviesAPIKey;
-extern NSString *const kMoviesBaseURLString;
-extern NSString *const kMoviesBaseImageURL;
-extern NSString *const kResultsKey;
-extern NSString *const kTitleKey;
-extern NSString *const kBackdropPathKey;
-extern NSString *const kPosterPathKey;
-extern NSString *const kOverviewKey;
+extern NSString *const kAPIMoviesAPIKey;
+extern NSString *const kAPIMoviesBaseURLString;
+extern NSString *const kAPIMoviesGenresBaseURLString;
+extern NSString *const kAPIMoviesBaseImageURL;
+extern NSString *const kAPIResultsKey;
+extern NSString *const kAPITitleKey;
+extern NSString *const kAPIBackdropPathKey;
+extern NSString *const kAPIPosterPathKey;
+extern NSString *const kAPIOverviewKey;
+extern NSString *const kAPIGenreIdsKey;
+extern NSString *const kAPIIdKey;
+extern NSString *const kAPINameKey;
 
 @end

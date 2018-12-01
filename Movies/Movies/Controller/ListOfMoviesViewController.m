@@ -9,6 +9,7 @@
 #import "ListOfMoviesViewController.h"
 #import "MovieTableViewCell.h"
 #import "MoviesAPIConstants.h"
+#import "MovieGeneralConstants.h"
 #import "MovieData.h"
 #import "MovieDescriptionViewController.h"
 #import "AFNetworking.h"
@@ -22,6 +23,7 @@ static NSString *CellIdentifier = @"MovieCell";
 @property (strong, nonatomic) UILabel *screenTitle;
 @property (strong, nonatomic) UITableView *tableView;
 @property (strong, nonatomic) NSArray *topRatedMovies;
+@property (strong, nonatomic) NSArray *moviesGenres;
 
 @end
 
@@ -31,78 +33,27 @@ static NSString *CellIdentifier = @"MovieCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view setBackgroundColor:[UIColor blackColor]];
-    [self addScreenTitle];
-    [self loadData];
-    [self cofigureTableview];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [_topRatedMovies count];
-}
-
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MovieTableViewCell *cell = (MovieTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
-
-    cell.movieTitle.text = [[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kTitleKey];
+    [self loadTopRatedMoviesData];
     
-    NSString *url = [[NSString alloc] initWithFormat:@"%@%@",kMoviesBaseImageURL, [[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kBackdropPathKey]];
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    UIImage *loading = [UIImage imageNamed:@"loading"];
+    [self initializeScreenTitle];
+    [self initializeTableview];
     
-    __weak MovieTableViewCell *weakCell = cell;
-    
-    [cell.movieBackgroundImage setImageWithURLRequest:request
-                          placeholderImage:loading
-                                   success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
-                                       weakCell.movieBackgroundImage.image = [self convertImageToGrayScale:image];
-                                       [weakCell setNeedsLayout];
-                                   } failure:nil];
-    
-    // Make sure the constraints have been added to this cell, since it may have just been created from scratch
-    [cell setNeedsUpdateConstraints];
-    [cell updateConstraintsIfNeeded];
-    
-    return cell;
+    [self applyScreenTitleConstraints];
+    [self applyTableViewConstraints];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 200;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MovieData *movieSelectedData = [[MovieData alloc] init];
-    [movieSelectedData setMovieDescription:[[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kOverviewKey]];
-    [movieSelectedData setBackDropImageURL:[[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kBackdropPathKey]];
-    [movieSelectedData setPosterPathImageURL:[[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kPosterPathKey]];
-    
-    MovieDescriptionViewController *movieDescriptionVC = [[MovieDescriptionViewController alloc] initWitData:movieSelectedData];
-    [self presentViewController:movieDescriptionVC animated:YES completion:nil];
-}
 
 #pragma mark - private methods
 
-- (void)loadData {
-    NSString *string = [NSString stringWithFormat:@"%@%@", kMoviesBaseURLString,kMoviesAPIKey];
+- (void)makeRequestWithBaseURL:(NSString *)baseURL andSuccesBlock:(void(^)(id response))success {
+    
+    NSString *string = [NSString stringWithFormat:@"%@%@", baseURL,kAPIMoviesAPIKey];
     NSURL *url = [NSURL URLWithString:[string stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]]];
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     [manager GET:url.absoluteString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
         NSLog(@"JSON: %@",(NSDictionary *)responseObject);
-        _topRatedMovies = [responseObject objectForKey:kResultsKey];
-        [self.tableView reloadData];
+        success(responseObject);
     } failure:^(NSURLSessionTask *operation, NSError *error) {
         UIAlertController* alert = [UIAlertController alertControllerWithTitle:@"Error"
                                                                        message:[error localizedDescription]
@@ -117,13 +68,38 @@ static NSString *CellIdentifier = @"MovieCell";
     }];
 }
 
-- (void)cofigureTableview {
+- (void)loadTopRatedMoviesData {
+    [self makeRequestWithBaseURL:kAPIMoviesBaseURLString andSuccesBlock:^(id responseObject){
+        _topRatedMovies = [responseObject objectForKey:kAPIResultsKey];
+        [self loadGenresData];
+        [self.tableView reloadData];
+    }];
+}
+
+- (void)loadGenresData {
+    [self makeRequestWithBaseURL:kAPIMoviesGenresBaseURLString andSuccesBlock:^(id responseObject){
+        _moviesGenres = [responseObject objectForKey:@"genres"];
+        [self.tableView reloadData];
+    }];
+}
+
+- (void)initializeTableview {
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     [_tableView registerClass:[MovieTableViewCell class] forCellReuseIdentifier:CellIdentifier];
-    _tableView.rowHeight = UITableViewAutomaticDimension;
+    [_tableView setSeparatorColor:[UIColor grayColor]];
+    [_tableView setBackgroundColor:[UIColor grayColor]];
     _tableView.dataSource = self;
     _tableView.delegate = self;
-    
+}
+
+- (void)initializeScreenTitle {
+    _screenTitle = [[UILabel alloc]initWithFrame:CGRectZero];
+    _screenTitle.text = @"top rated movies";
+    [_screenTitle setFont:[UIFont fontWithName:kGeneralBaseFont size:30]];
+    [_screenTitle setTextColor:[UIColor whiteColor]];
+}
+
+- (void)applyTableViewConstraints {
     [self.view addSubview:_tableView];
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -134,12 +110,7 @@ static NSString *CellIdentifier = @"MovieCell";
     }];
 }
 
-- (void)addScreenTitle {
-    _screenTitle = [[UILabel alloc]initWithFrame:CGRectZero];
-    _screenTitle.text = @"top rated movies";
-    [_screenTitle setFont:[UIFont fontWithName:@"Helvetica" size:30]];
-    [_screenTitle setTextColor:[UIColor whiteColor]];
-    
+- (void)applyScreenTitleConstraints {
     [self.view addSubview:_screenTitle];
     
     [_screenTitle mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -171,6 +142,64 @@ static NSString *CellIdentifier = @"MovieCell";
     
     // Return the new grayscale image
     return newImage;
+}
+
+#pragma mark - Table view data source
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return [_topRatedMovies count];
+}
+
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    MovieTableViewCell *cell = (MovieTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
+    
+    NSDictionary *movie = [_topRatedMovies objectAtIndex:[indexPath row]];
+    
+    for (NSDictionary *genre in _moviesGenres) {
+        if ([genre objectForKey:kAPIIdKey] == [[movie objectForKey:kAPIGenreIdsKey] objectAtIndex:0]) {
+            cell.movieGenre.text = [[genre objectForKey:kAPINameKey] uppercaseString];
+        }
+    }
+    
+    cell.movieTitle.text = [movie objectForKey:kAPITitleKey];
+    
+    NSString *url = [[NSString alloc] initWithFormat:@"%@%@",kAPIMoviesBaseImageURL, [[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kAPIBackdropPathKey]];
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    UIImage *loading = [UIImage imageNamed:@"loading"];
+    
+    __weak MovieTableViewCell *weakCell = cell;
+    
+    [cell.movieBackgroundImage setImageWithURLRequest:request
+                                     placeholderImage:loading
+                                              success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+                                                  weakCell.movieBackgroundImage.image = [self convertImageToGrayScale:image];
+                                                  [weakCell setNeedsLayout];
+                                              } failure:nil];
+    
+    // Make sure the constraints have been added to this cell, since it may have just been created from scratch
+    [cell setNeedsUpdateConstraints];
+    [cell updateConstraintsIfNeeded];
+    
+    return cell;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 200;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MovieData *movieSelectedData = [[MovieData alloc] init];
+    [movieSelectedData setMovieDescription:[[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kAPIOverviewKey]];
+    [movieSelectedData setBackDropImageURL:[[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kAPIBackdropPathKey]];
+    [movieSelectedData setPosterPathImageURL:[[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kAPIPosterPathKey]];
+    
+    MovieDescriptionViewController *movieDescriptionVC = [[MovieDescriptionViewController alloc] initWitData:movieSelectedData];
+    [self presentViewController:movieDescriptionVC animated:YES completion:nil];
 }
 
 @end
