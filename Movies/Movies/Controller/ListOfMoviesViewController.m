@@ -37,11 +37,12 @@ static NSString *CellIdentifier = @"MovieCell";
     
     [self initializeScreenTitle];
     [self initializeTableview];
-    
+}
+
+- (void)viewWillLayoutSubviews {
     [self applyScreenTitleConstraints];
     [self applyTableViewConstraints];
 }
-
 
 #pragma mark - private methods
 
@@ -114,7 +115,11 @@ static NSString *CellIdentifier = @"MovieCell";
     [self.view addSubview:_screenTitle];
     
     [_screenTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.view.mas_top).with.offset(10);
+        if (@available(iOS 11.0, *)) {
+            make.top.equalTo(self.view.mas_top).with.offset(self.view.safeAreaInsets.top);
+        } else {
+            make.top.equalTo(self.view.mas_top).with.offset(10);
+        }
         make.centerX.equalTo(self.view.mas_centerX);
         make.height.lessThanOrEqualTo(@100);
     }];

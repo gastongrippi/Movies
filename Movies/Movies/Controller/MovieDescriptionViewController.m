@@ -13,7 +13,7 @@
 #import "Masonry.h"
 #import <ChameleonFramework/Chameleon.h>
 
-@interface MovieDescriptionViewController ()
+@interface MovieDescriptionViewController () <UIScrollViewDelegate>
 
 @property(strong, nonatomic)UINavigationBar *navBar;
 @property(strong, nonatomic)UIScrollView *scrollView;
@@ -41,12 +41,6 @@
     [self initializeTranslucentView];
     [self initializePosterImage];
     [self initializeDescriptionLabel];
-    
-    [self applyInitialViewConstraints];
-    [self applyBackdropImageConstraints];
-    [self applyTranslucentViewConstraints];
-    [self applyPosterImageConstraints];
-    [self applyDescriptionLabelConstraints];
 }
 
 - (instancetype)initWitData:(MovieData *)data {
@@ -59,9 +53,12 @@
     return self;
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)viewWillLayoutSubviews {
+    [self applyInitialViewConstraints];
+    [self applyBackdropImageConstraints];
+    [self applyTranslucentViewConstraints];
+    [self applyPosterImageConstraints];
+    [self applyDescriptionLabelConstraints];
 }
 
 #pragma mark - private methods
@@ -75,12 +72,12 @@
     _scrollView = [[UIScrollView alloc] init];
     _contentView = [[UIView alloc] init];
     _navBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
-    _navBar.backgroundColor = [UIColor whiteColor];
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
     navItem.title = @"Movie detail";
     UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:self action:@selector(navigateBack)];
     navItem.leftBarButtonItem = leftButton;
     _navBar.items = @[navItem];
+    self.scrollView.delegate = self;
 }
 
 
@@ -149,7 +146,12 @@
     
     [self.contentView addSubview:_navBar];
     [_navBar mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.and.right.and.top.equalTo(self.contentView);
+        if (@available(iOS 11.0, *)) {
+            make.top.equalTo(self.view.mas_top).with.offset(self.view.safeAreaInsets.top);
+        } else {
+            make.top.equalTo(self.view.mas_top);
+        }
+        make.left.and.right.equalTo(self.contentView);
         make.height.equalTo(@44);
     }];
 }
@@ -182,6 +184,8 @@
     [_moviePosterImageView mas_makeConstraints:^(MASConstraintMaker *make){
         make.centerX.equalTo(self.contentView);
         make.top.equalTo(self.navBar.mas_bottom).with.offset(20);
+        make.height.equalTo(@(350));
+        make.width.equalTo(@(200));
     }];
 }
 
@@ -191,6 +195,20 @@
         make.top.equalTo(self.navBar.mas_bottom);
         make.left.and.bottom.and.right.equalTo(self.contentView);
     }];
+}
+
+- (void)updatePosterConstraintsWithOffset:(CGFloat)newHeight {
+    [_moviePosterImageView mas_updateConstraints:^(MASConstraintMaker *make){
+        make.height.equalTo(@(newHeight));
+    }];
+}
+
+#pragma mark - scroll view delegate methods
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat newHeight = 350 - (_scrollView.contentOffset.y + 20.0f);
+    newHeight = MAX(200, newHeight);
+    [self updatePosterConstraintsWithOffset:newHeight];
 }
 
 @end
