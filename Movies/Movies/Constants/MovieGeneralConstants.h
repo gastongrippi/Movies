@@ -9,5 +9,12 @@
 #import <Foundation/Foundation.h>
 
 @interface MovieGeneralConstants : NSObject
+
 extern NSString *const kGeneralBaseFont;
+extern NSInteger const kScreenTitleSize;
+extern NSInteger const kGeneralOffset;
+extern NSInteger const kMovieListRowSize;
+extern NSInteger const kInfoTextSize;
+extern NSInteger const kGenreTextSize;
+
 @end

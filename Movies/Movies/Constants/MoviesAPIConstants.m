@@ -10,6 +10,8 @@
 
 @implementation MoviesAPIConstants
 
+// La API key seria un valor a obtener en tiempo de buildeo. A efectos practicos, la key ha sido
+// incluida en el repo, pero podria subirse el proyecto e indicar que aqui debe incluirse la API key
 NSString *const kAPIMoviesAPIKey = @"208ca80d1e219453796a7f9792d16776";
 NSString *const kAPIMoviesBaseURLString = @"https://api.themoviedb.org/3/movie/top_rated?api_key=";
 NSString *const kAPIMoviesGenresBaseURLString = @"https://api.themoviedb.org/3/genre/movie/list?api_key=";

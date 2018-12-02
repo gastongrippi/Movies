@@ -33,19 +33,27 @@ static NSString *CellIdentifier = @"MovieCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Carga inicial de datos de la API
     [self loadTopRatedMoviesData];
     
+    // Inciailizar componentes visuales
     [self initializeScreenTitle];
     [self initializeTableview];
 }
 
 - (void)viewWillLayoutSubviews {
+    // Aplicar constraints necesarios en los componentes visuales
     [self applyScreenTitleConstraints];
     [self applyTableViewConstraints];
 }
 
 #pragma mark - private methods
 
+/*
+ metodo utilizado para obtener info de la API. Ejecuta un completion block que permite personalizar
+ que acciones se deben realizar en el success block.
+ De la misma manera se podria agregar un cancel block
+*/
 - (void)makeRequestWithBaseURL:(NSString *)baseURL andSuccesBlock:(void(^)(id response))success {
     
     NSString *string = [NSString stringWithFormat:@"%@%@", baseURL,kAPIMoviesAPIKey];
@@ -96,7 +104,7 @@ static NSString *CellIdentifier = @"MovieCell";
 - (void)initializeScreenTitle {
     _screenTitle = [[UILabel alloc]initWithFrame:CGRectZero];
     _screenTitle.text = @"top rated movies";
-    [_screenTitle setFont:[UIFont fontWithName:kGeneralBaseFont size:30]];
+    [_screenTitle setFont:[UIFont fontWithName:kGeneralBaseFont size:kScreenTitleSize]];
     [_screenTitle setTextColor:[UIColor whiteColor]];
 }
 
@@ -104,7 +112,7 @@ static NSString *CellIdentifier = @"MovieCell";
     [self.view addSubview:_tableView];
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.screenTitle.mas_bottom).with.offset(10);
+        make.top.equalTo(self.screenTitle.mas_bottom).with.offset(kGeneralOffset);
         make.left.equalTo(self.view.mas_left);
         make.right.equalTo(self.view.mas_right);
         make.bottom.greaterThanOrEqualTo(self.view.mas_bottom);
@@ -118,13 +126,17 @@ static NSString *CellIdentifier = @"MovieCell";
         if (@available(iOS 11.0, *)) {
             make.top.equalTo(self.view.mas_top).with.offset(self.view.safeAreaInsets.top);
         } else {
-            make.top.equalTo(self.view.mas_top).with.offset(10);
+            make.top.equalTo(self.view.mas_top).with.offset(kGeneralOffset);
         }
         make.centerX.equalTo(self.view.mas_centerX);
-        make.height.lessThanOrEqualTo(@100);
     }];
 }
 
+/*
+ Metodo utilizado para aplicar una transformacion de imagen a las imagenes de las celdas
+ Se cambia de color a una escala de grises.
+ Si existieran mas metodos como este, se podria crear una extension de UIImage.
+*/
 - (UIImage *)convertImageToGrayScale:(UIImage *)image {
     
     // Create image rectangle with current image width/height
@@ -163,22 +175,23 @@ static NSString *CellIdentifier = @"MovieCell";
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MovieTableViewCell *cell = (MovieTableViewCell *)[tableView dequeueReusableCellWithIdentifier:CellIdentifier forIndexPath:indexPath];
     
+    // obtener pelicula para un determinado indexPath row
     NSDictionary *movie = [_topRatedMovies objectAtIndex:[indexPath row]];
     
+    // obtener informacion necesaria de esa pelicula para setearse en la celda
     for (NSDictionary *genre in _moviesGenres) {
         if ([genre objectForKey:kAPIIdKey] == [[movie objectForKey:kAPIGenreIdsKey] objectAtIndex:0]) {
             cell.movieGenre.text = [[genre objectForKey:kAPINameKey] uppercaseString];
         }
     }
-    
     cell.movieTitle.text = [movie objectForKey:kAPITitleKey];
     
+    // Obtener imagen para setear en celda.
     NSString *url = [[NSString alloc] initWithFormat:@"%@%@",kAPIMoviesBaseImageURL, [[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kAPIBackdropPathKey]];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     UIImage *loading = [UIImage imageNamed:@"loading"];
     
     __weak MovieTableViewCell *weakCell = cell;
-    
     [cell.movieBackgroundImage setImageWithURLRequest:request
                                      placeholderImage:loading
                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
@@ -194,9 +207,13 @@ static NSString *CellIdentifier = @"MovieCell";
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 200;
+    return kMovieListRowSize;
 }
 
+/*
+ Metodo utilizado para preparar informacion de la celda seleccionada necesaria
+ para el proximo view controller y navegar hacia dicho view controller.
+*/
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     MovieData *movieSelectedData = [[MovieData alloc] init];
     [movieSelectedData setMovieDescription:[[_topRatedMovies objectAtIndex:[indexPath row]] objectForKey:kAPIOverviewKey]];

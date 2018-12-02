@@ -62,40 +62,40 @@
 - (void)intiatilizeMovieTitle {
     _movieTitle = [[UILabel alloc] initWithFrame:CGRectZero];
     [_movieTitle setTextColor:[UIColor whiteColor]];
-    [_movieTitle setFont:[UIFont fontWithName:kGeneralBaseFont size:20]];
+    [_movieTitle setFont:[UIFont fontWithName:kGeneralBaseFont size:kInfoTextSize]];
 }
 
 - (void)intiatilizeMovieGenre {
     _movieGenre = [[UILabel alloc] initWithFrame:CGRectZero];
     [_movieGenre setTextColor:[UIColor whiteColor]];
-    [_movieGenre setFont:[UIFont fontWithName:kGeneralBaseFont size:15]];
+    [_movieGenre setFont:[UIFont fontWithName:kGeneralBaseFont size:kGenreTextSize]];
     [_movieGenre setBackgroundColor:[UIColor grayColor]];
 }
 
 - (void)applyMovieBackgroundImageConstraints {
     [self.contentView addSubview:_movieBackgroundImage];
     [_movieBackgroundImage mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.contentView.mas_top).with.offset(10);
-        make.left.equalTo(self.contentView.mas_left).with.offset(10);
-        make.right.equalTo(self.contentView.mas_right).with.offset(-10);
-        make.bottom.equalTo(self.contentView.mas_bottom).with.offset(-10);
+        make.top.equalTo(self.contentView.mas_top).with.offset(kGeneralOffset);
+        make.left.equalTo(self.contentView.mas_left).with.offset(kGeneralOffset);
+        make.right.equalTo(self.contentView.mas_right).with.offset(-kGeneralOffset);
+        make.bottom.equalTo(self.contentView.mas_bottom).with.offset(-kGeneralOffset);
     }];
 }
 
 - (void)applyMovieTitleConstraints {
     [self.contentView addSubview:_movieTitle];
     [_movieTitle mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.movieBackgroundImage.mas_left).with.offset(10);
-        make.bottom.equalTo(self.movieBackgroundImage.mas_bottom).with.offset(-10);
-        make.width.equalTo(self.movieBackgroundImage.mas_width).with.offset(-10);
+        make.left.equalTo(self.movieBackgroundImage.mas_left).with.offset(kGeneralOffset);
+        make.bottom.equalTo(self.movieBackgroundImage.mas_bottom).with.offset(-kGeneralOffset);
+        make.width.equalTo(self.movieBackgroundImage.mas_width).with.offset(-kGeneralOffset);
     }];
 }
 
 - (void)applyMovieGenreConstraints {
     [self.contentView addSubview:_movieGenre];
     [_movieGenre mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.right.equalTo(self.movieBackgroundImage.mas_right).with.offset(-10);
-        make.top.equalTo(self.movieBackgroundImage.mas_top).with.offset(10);
+        make.right.equalTo(self.movieBackgroundImage.mas_right).with.offset(-kGeneralOffset);
+        make.top.equalTo(self.movieBackgroundImage.mas_top).with.offset(kGeneralOffset);
     }];
 }
 

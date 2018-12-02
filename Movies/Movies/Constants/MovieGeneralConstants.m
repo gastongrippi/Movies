@@ -9,6 +9,12 @@
 #import "MovieGeneralConstants.h"
 
 @implementation MovieGeneralConstants
+
 NSString *const kGeneralBaseFont = @"Helvetica";
+NSInteger const kScreenTitleSize = 30;
+NSInteger const kGeneralOffset = 10;
+NSInteger const kMovieListRowSize = 200;
+NSInteger const kInfoTextSize = 20;
+NSInteger const kGenreTextSize = 15;
 
 @end

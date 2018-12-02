@@ -15,14 +15,14 @@
 
 @interface MovieDescriptionViewController () <UIScrollViewDelegate>
 
-@property(strong, nonatomic)UINavigationBar *navBar;
 @property(strong, nonatomic)UIScrollView *scrollView;
 @property(strong, nonatomic)UIView *contentView;
+@property(strong, nonatomic)UIView *translucentView;
+@property(strong, nonatomic)UIButton *backButton;
 
 @property(strong, nonatomic)UIImageView *movieBackgroundImageView;
 @property(strong, nonatomic)UIImageView *moviePosterImageView;
 @property(strong, nonatomic)UILabel *movieDescription;
-@property(strong, nonatomic)UIView *translucentView;
 
 @property(strong, nonatomic)NSString *movieOverview;
 @property(strong, nonatomic)NSString *backdropURL;
@@ -36,7 +36,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    // Inciailizar componentes visuales
     [self setupInitialView];
+    [self initializeBackButton];
     [self initializeBackdropImage];
     [self initializeTranslucentView];
     [self initializePosterImage];
@@ -54,7 +56,9 @@
 }
 
 - (void)viewWillLayoutSubviews {
+    // Aplicar constraints necesarios en los componentes visuales
     [self applyInitialViewConstraints];
+    [self applyBackButtonConstraints];
     [self applyBackdropImageConstraints];
     [self applyTranslucentViewConstraints];
     [self applyPosterImageConstraints];
@@ -72,15 +76,13 @@
     _scrollView = [[UIScrollView alloc] init];
     _contentView = [[UIView alloc] init];
     self.scrollView.delegate = self;
-    _navBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
-    UINavigationItem *navItem = [[UINavigationItem alloc] init];
-    navItem.title = @"Movie detail";
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStylePlain target:self action:@selector(navigateBack)];
-    navItem.leftBarButtonItem = leftButton;
-    _navBar.items = @[navItem];
-    
 }
 
+- (void)initializeBackButton {
+    _backButton = [[UIButton alloc] initWithFrame:CGRectZero];
+    [_backButton setImage:[UIImage imageNamed:@"backArrow"] forState:UIControlStateNormal];
+    [_backButton addTarget:self action:@selector(navigateBack) forControlEvents:UIControlEventTouchDown];
+}
 
 - (void)initializeTranslucentView {
     _translucentView = [[UIView alloc] initWithFrame:CGRectZero];
@@ -93,7 +95,7 @@
     _movieDescription.numberOfLines = 0;
     [_movieDescription setTextAlignment:NSTextAlignmentJustified];
     [_movieDescription setAdjustsFontSizeToFitWidth:NO];
-    [_movieDescription setFont:[UIFont fontWithName:kGeneralBaseFont size:20]];
+    [_movieDescription setFont:[UIFont fontWithName:kGeneralBaseFont size:kInfoTextSize]];
     _movieDescription.text = _movieOverview;
 }
 
@@ -146,16 +148,18 @@
         make.edges.equalTo(self.scrollView);
         make.width.equalTo(self.scrollView);
     }];
-    
-    [self.contentView addSubview:_navBar];
-    [_navBar mas_makeConstraints:^(MASConstraintMaker *make) {
+}
+
+- (void)applyBackButtonConstraints {
+    [self.contentView addSubview:_backButton];
+    [_backButton mas_makeConstraints:^(MASConstraintMaker *make) {
         if (@available(iOS 11.0, *)) {
-            make.top.equalTo(self.view.mas_top).with.offset(self.view.safeAreaInsets.top);
+            make.top.equalTo(self.view.mas_top).with.offset(self.view.safeAreaInsets.top + kGeneralOffset);
         } else {
-            make.top.equalTo(self.view.mas_top);
+            make.top.equalTo(self.view.mas_top).with.offset(kGeneralOffset);
         }
-        make.left.and.right.equalTo(self.contentView);
-        make.height.equalTo(@44);
+        make.left.equalTo(self.contentView).with.offset(kGeneralOffset);
+        make.height.and.width.equalTo(@(30));
     }];
 }
 
@@ -164,14 +168,14 @@
     [_translucentView mas_makeConstraints:^(MASConstraintMaker *make){
         make.width.equalTo(self.contentView.mas_width);
         make.bottom.greaterThanOrEqualTo(self.contentView);
-        make.top.equalTo(self.navBar.mas_bottom);
+        make.top.equalTo(self.backButton.mas_bottom);
     }];
 }
 
 - (void)applyDescriptionLabelConstraints {
     [self.contentView addSubview:_movieDescription];
     [_movieDescription mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.moviePosterImageView.mas_bottom).with.offset(20);
+        make.top.equalTo(self.moviePosterImageView.mas_bottom).with.offset(kGeneralOffset*2);
         make.width.equalTo(self.contentView.mas_width).multipliedBy(0.8);
         make.centerX.equalTo(self.contentView.mas_centerX);
         make.bottom.greaterThanOrEqualTo(self.contentView);
@@ -186,7 +190,7 @@
     [self.contentView addSubview:_moviePosterImageView];
     [_moviePosterImageView mas_makeConstraints:^(MASConstraintMaker *make){
         make.centerX.equalTo(self.contentView);
-        make.top.equalTo(self.navBar.mas_bottom).with.offset(20);
+        make.top.equalTo(self.backButton.mas_bottom).with.offset(kGeneralOffset*2);
         make.height.equalTo(@(375));
         make.width.equalTo(@(250));
     }];
@@ -195,7 +199,7 @@
 - (void)applyBackdropImageConstraints {
     [self.contentView addSubview:_movieBackgroundImageView];
     [_movieBackgroundImageView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.navBar.mas_bottom);
+        make.top.equalTo(self.backButton.mas_bottom);
         make.left.and.bottom.and.right.equalTo(self.contentView);
     }];
 }
@@ -209,6 +213,8 @@
 #pragma mark - scroll view delegate methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    // TODO: El resizing se esta aplicando solo a la altura de la imagen, pero
+    // se deberia hacer teniendo en cuenta el aspect Ratio
     CGFloat newHeight = 375 - (_scrollView.contentOffset.y + 20.0f);
     newHeight = MAX(200, newHeight);
     [self updatePosterConstraintsWithOffset:newHeight];
