@@ -71,13 +71,14 @@
     self.view = [[UIView alloc] init];
     _scrollView = [[UIScrollView alloc] init];
     _contentView = [[UIView alloc] init];
+    self.scrollView.delegate = self;
     _navBar = [[UINavigationBar alloc] initWithFrame:CGRectZero];
     UINavigationItem *navItem = [[UINavigationItem alloc] init];
     navItem.title = @"Movie detail";
-    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithTitle:@"back" style:UIBarButtonItemStylePlain target:self action:@selector(navigateBack)];
+    UIBarButtonItem *leftButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"backArrow"] style:UIBarButtonItemStylePlain target:self action:@selector(navigateBack)];
     navItem.leftBarButtonItem = leftButton;
     _navBar.items = @[navItem];
-    self.scrollView.delegate = self;
+    
 }
 
 
@@ -103,18 +104,20 @@
     UIImage *loading = [UIImage imageNamed:@"loading"];
     
     __weak UIImageView *weakPosterImage = _moviePosterImageView;
-    __weak UIView *weakTranslucentView = _translucentView;
-    __weak UILabel *weakMovieDescription = _movieDescription;
-    __weak UIView *weakScrollView = _scrollView;
+    __weak MovieDescriptionViewController *weakSelf = self;
     [_moviePosterImageView setImageWithURLRequest:request
                                      placeholderImage:loading
                                               success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
                                                   weakPosterImage.image = image;
                                                   UIColor *averageColor = AverageColorFromImage(image);
-                                                  [weakTranslucentView setBackgroundColor:averageColor];
-                                                  [weakScrollView setBackgroundColor:averageColor];
-                                                  [weakMovieDescription setTextColor:[UIColor colorWithContrastingBlackOrWhiteColorOn:averageColor isFlat:YES]];
+                                                  [weakSelf setViewsThemesWithAverageColor:averageColor];
                                               } failure:nil];
+}
+
+- (void)setViewsThemesWithAverageColor:(UIColor *)averageColor {
+    [_translucentView setBackgroundColor:averageColor];
+    [_scrollView setBackgroundColor:averageColor];
+    [_movieDescription setTextColor:[UIColor colorWithContrastingBlackOrWhiteColorOn:averageColor isFlat:YES]];
 }
 
 - (void)initializeBackdropImage {
@@ -184,8 +187,8 @@
     [_moviePosterImageView mas_makeConstraints:^(MASConstraintMaker *make){
         make.centerX.equalTo(self.contentView);
         make.top.equalTo(self.navBar.mas_bottom).with.offset(20);
-        make.height.equalTo(@(350));
-        make.width.equalTo(@(200));
+        make.height.equalTo(@(375));
+        make.width.equalTo(@(250));
     }];
 }
 
@@ -206,7 +209,7 @@
 #pragma mark - scroll view delegate methods
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-    CGFloat newHeight = 350 - (_scrollView.contentOffset.y + 20.0f);
+    CGFloat newHeight = 375 - (_scrollView.contentOffset.y + 20.0f);
     newHeight = MAX(200, newHeight);
     [self updatePosterConstraintsWithOffset:newHeight];
 }
